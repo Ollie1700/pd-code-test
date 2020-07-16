@@ -13,4 +13,3 @@ export default async function getLinksFromUrl(url: string, browser: any) {
 
   return links.filter(isUrlValid)
 }
-  
