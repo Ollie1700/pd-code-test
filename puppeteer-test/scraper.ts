@@ -1,9 +1,19 @@
 import * as puppeteer from 'puppeteer'
 
+import getUrlFromArgV from './functions/getUrlFromArgV'
+
 (async () => {
-  const browser = await puppeteer.launch()
+  try {
+    const url: string = getUrlFromArgV()
+    console.log(`url: ${url}`)
+    // const browser = await puppeteer.launch()
 
-  // Code
+    // Code
 
-  await browser.close()
+    // await browser.close()
+  } catch (e) {
+    console.error(e)
+  } finally {
+    process.exit()
+  }
 })()
