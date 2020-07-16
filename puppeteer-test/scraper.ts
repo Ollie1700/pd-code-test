@@ -1,9 +1,24 @@
 import * as puppeteer from 'puppeteer'
 
+import getUrlFromArgV from './functions/getUrlFromArgV'
+import followLink from './functions/followLink'
+import getLinksFromUrl from './functions/getLinksFromUrl'
+
 (async () => {
-  const browser = await puppeteer.launch()
+  try {
+    const url = getUrlFromArgV()
+    const browser = await puppeteer.launch()
+    const links = await getLinksFromUrl(url, browser)
 
-  // Code
+    console.log(url)
 
-  await browser.close()
+    const processedLinks = links.map(link => followLink(link, browser))
+
+    await Promise.all(processedLinks)
+    await browser.close()
+  } catch (e) {
+    console.error(e)
+  } finally {
+    process.exit()
+  }
 })()
