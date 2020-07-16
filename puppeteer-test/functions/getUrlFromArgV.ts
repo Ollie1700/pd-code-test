@@ -1,13 +1,11 @@
-import { parse } from 'url'
+import isUrlValid from './isUrlValid'
 
-export default function getUrlFromArgV(): string {
+export default function getUrlFromArgV() {
   if (!process.argv.hasOwnProperty(2)) {
     throw new Error('URL is required')
   }
 
-  const url = parse(process.argv[2])
-
-  if (!url.hostname) {
+  if (!isUrlValid(process.argv[2])) {
     throw new Error(`'${process.argv[2]}' is not a valid URL`)
   }
 
